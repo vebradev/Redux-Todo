@@ -7,15 +7,11 @@ import Todo from "./Todo";
 
 export class Container extends React.Component {
   render() {
-    const todoList = ["a", "b", "c"];
 
     return (
       <div>
-        Hi!
         <TodoForm />
-        {todoList.map(todo => (
-          <Todo key={todo.id} todo={todo} />
-        ))}
+        <Todo todoList={this.props.todoList} />
       </div>
     );
   }
