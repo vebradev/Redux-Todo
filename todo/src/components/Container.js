@@ -11,7 +11,7 @@ export class Container extends React.Component {
     return (
       <div>
         <TodoForm />
-        <Todo todoList={this.props.todoList} />
+        <Todo todos={this.props.todos} />
       </div>
     );
   }
@@ -20,7 +20,7 @@ export class Container extends React.Component {
 // 9. Map state to props
 function mapStateToProps(state) {
   return {
-    todoList: state.todoList
+    todos: state.todos
   };
 }
 

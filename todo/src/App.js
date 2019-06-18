@@ -20,6 +20,7 @@ export default class App extends React.Component {
 // 2. Action types
 export const ADD_TODO = "ADD_TODO";
 export const REMOVE_TODO = "REMOVE_TODO";
+export const TOGGLE_COMPLETE = "TOGGLE_COMPLETE";
 
 // 3. Reducer
 function todoReducer(state = [], action) {
@@ -28,6 +29,14 @@ function todoReducer(state = [], action) {
       return [...state, action.payload];
     case REMOVE_TODO: // Stretch task!
       return state;
+    case TOGGLE_COMPLETE:
+      return state.map(todo => {
+        if (todo.id === action.payload) {
+          todo.completed = !todo.completed;
+          return todo;
+        }
+        return todo;
+      });
     default:
       return state;
   }
@@ -35,7 +44,7 @@ function todoReducer(state = [], action) {
 
 // 4. Combine reducers
 const combinedReducer = combineReducers({
-  todoList: todoReducer
+  todos: todoReducer
 });
 
 // 5. Redux store
@@ -53,12 +62,20 @@ ReactDOM.render(
 );
 
 // 7. Action dispatchers
-export function addTodo(todo) {
+export function addTodo(value) {
   return {
     type: ADD_TODO,
     payload: {
-      todo,
-      id: uuid()
+      value,
+      id: uuid(),
+      completed: false
     }
+  };
+}
+
+export function toggleComplete(id) {
+  return {
+    type: TOGGLE_COMPLETE,
+    payload: id
   };
 }
